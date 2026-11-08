@@ -51,3 +51,10 @@ begin
  return jsonb_build_object('applied',not v_conflict,'duplicate',false,'conflict',v_conflict);
 end $$;
 grant execute on function public.apply_smartshop_snapshot(uuid,jsonb) to authenticated;
+
+-- Expose only the least privileges required by authenticated SmartShop clients.
+revoke all on table public.profiles, public.shopping_lists, public.grocery_items, public.product_corrections, public.sync_mutations from anon;
+grant select, insert, update, delete on table public.profiles, public.shopping_lists, public.grocery_items, public.product_corrections to authenticated;
+grant select, insert on table public.sync_mutations to authenticated;
+revoke execute on function public.apply_smartshop_snapshot(uuid,jsonb) from public, anon;
+grant execute on function public.apply_smartshop_snapshot(uuid,jsonb) to authenticated;

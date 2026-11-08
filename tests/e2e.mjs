@@ -23,6 +23,7 @@ const pressEnter=async(selector)=>{await js(`document.querySelector(${JSON.strin
 const assert=async(condition,label)=>{if(!await condition())throw new Error(label);console.log(`PASS ${label}`)}
 
 try{
+  await waitFor(async()=>{const response=await fetch('http://127.0.0.1:4173/');return response.ok},'Vite preview server')
   await waitFor(async()=>{const response=await fetch('http://127.0.0.1:9333/json/version');return response.ok&&response.json()},'Edge debugger')
   const version=await (await fetch('http://127.0.0.1:9333/json/version')).json();socket=new WebSocket(version.webSocketDebuggerUrl)
   await new Promise((resolve,reject)=>{socket.onopen=resolve;socket.onerror=reject;socket.onmessage=event=>{const message=JSON.parse(event.data);if(message.id&&pending.has(message.id)){const item=pending.get(message.id);pending.delete(message.id);message.error?item.reject(new Error(message.error.message)):item.resolve(message.result)}}})

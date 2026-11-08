@@ -7,6 +7,9 @@ jobs:
   android-debug:
     runs-on: ubuntu-latest
     permissions: { contents: read }
+    env:
+      VITE_SUPABASE_URL: https://bkaqsnaqjyocnikmbfrx.supabase.co
+      VITE_SUPABASE_ANON_KEY: sb_publishable_FXVSUecxlJwXx40KuZnfDQ_w9TIfNLi
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
