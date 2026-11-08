@@ -1,0 +1,23 @@
+{
+  "applicationVersion": "0.4.0",
+  "buildNumber": 5,
+  "buildDate": "2026-11-08",
+  "releaseChannel": "development",
+  "storageSchemaVersion": 3,
+  "minimumCompatibleDataVersion": 1,
+  "importantAdditions": [
+    "Real Supabase email accounts when a free project is configured",
+    "Durable offline synchronisation queue with retry and conflict states",
+    "Android and free GitHub Actions build configuration"
+  ],
+  "importantFixes": [
+    "Native Capacitor runs no longer register the browser service worker",
+    "Local lists remain usable and are not erased on sign-in or sign-out"
+  ],
+  "knownLimitations": [
+    "Account and cross-device tests require a configured Supabase Free project",
+    "Android APK compilation requires JDK/Android tooling or the GitHub workflow",
+    "Store layouts are demonstration data, not live availability",
+    "Voice entry depends on browser speech support"
+  ]
+}

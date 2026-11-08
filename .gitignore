@@ -1,0 +1,49 @@
+# Dependencies and generated builds
+node_modules/
+dist/
+target/
+android/.gradle/
+android/build/
+android/app/build/
+*.apk
+*.aab
+.npm-cache/
+
+# Browser profiles and disposable test evidence
+.chrome-test*/
+chrome-profile*/
+browser-profile*/
+shots/*
+!shots/version-run-4.png
+
+# Environment, credentials, signing material and private data
+.env
+.env.*
+!.env.example
+*supabase*credentials*
+*.jks
+*.keystore
+*.p12
+*.pfx
+key.properties
+secrets.properties
+google-services.json
+local.properties
+*.pem
+*.key
+private-data/
+
+# Editors, operating systems, logs and reports
+.idea/
+.vscode/
+*.swp
+*.swo
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+coverage/
+test-results/
+playwright-report/

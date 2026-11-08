@@ -1,0 +1,21 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.simeonfab.shoppingbuddy'
+    compileSdk = 36
+    defaultConfig {
+        applicationId 'com.simeonfab.shoppingbuddy'
+        minSdk = 24
+        targetSdk = 36
+        versionCode 5
+        versionName '0.4.0'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    buildTypes { release { minifyEnabled false } }
+}
+dependencies {
+    implementation project(':capacitor-android')
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.3.0'
+    implementation 'androidx.core:core-splashscreen:1.2.0'
+    testImplementation 'junit:junit:4.13.2'
+}

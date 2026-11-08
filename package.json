@@ -1,0 +1,34 @@
+{
+  "name": "smartshop-pwa",
+  "private": true,
+  "version": "0.4.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "check:version": "node scripts/check-version.mjs",
+    "typecheck": "tsc --noEmit",
+    "build:web": "npm run check:version && tsc && vite build",
+    "build": "npm run build:web && cargo build --release",
+    "cap:sync": "npm run build:web && npx cap sync android",
+    "android:debug": "npm run cap:sync && cd android && gradlew.bat assembleDebug",
+    "check:android": "cd android && gradlew.bat testDebugUnitTest assembleDebug",
+    "check:rls": "node scripts/check-rls.mjs",
+    "preview": "vite preview",
+    "test:e2e": "node tests/e2e.mjs"
+  },
+  "dependencies": {
+    "@capacitor/core": "8.5.3",
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "typescript": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "lucide-react": "latest"
+  },
+  "devDependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/cli": "8.5.3",
+    "@types/react": "latest",
+    "@types/react-dom": "latest"
+  }
+}

@@ -1,0 +1,3 @@
+package com.simeonfab.shoppingbuddy;
+import com.getcapacitor.BridgeActivity;
+public class MainActivity extends BridgeActivity {}

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "values": [
+    {
+      "name": "store-specific sorting",
+      "group": "shopping route",
+      "value": true,
+      "source": "src/App.tsx correctedSection and sortedItems"
+    },
+    {
+      "name": "duplicate item behavior",
+      "group": "shopping list",
+      "value": "increase quantity",
+      "source": "src/App.tsx addItem"
+    },
+    {
+      "name": "offline list persistence",
+      "group": "reliability",
+      "value": "versioned IndexedDB with localStorage migration",
+      "source": "src/storage.ts and src/App.tsx durable persistence effect"
+    },
+    {
+      "name": "undo window",
+      "group": "shopping list",
+      "value": 4500,
+      "unit": "milliseconds",
+      "estimated": true
+    }
+  ]
+}

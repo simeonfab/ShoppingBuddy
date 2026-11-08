@@ -1,0 +1,13 @@
+{
+  "name": "SmartShop",
+  "short_name": "SmartShop",
+  "description": "Your shopping list, in the order you'll find it.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f5ee",
+  "theme_color": "#17483f",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
