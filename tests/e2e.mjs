@@ -6,7 +6,7 @@ import { join } from 'node:path'
 const edge=[process.env.CHROME_PATH,'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe','/usr/bin/google-chrome','/usr/bin/chromium','/usr/bin/chromium-browser'].find(value=>value&&existsSync(value))
 if(!edge)throw new Error('Chrome/Chromium was not found. Set CHROME_PATH to run genuine browser tests.')
 const profile=mkdtempSync(join(tmpdir(),'smartshop-e2e-'))
-const server=spawn(process.execPath,['node_modules/vite/bin/vite.js','preview','--port','4173','--strictPort'],{stdio:'pipe'})
+const server=spawn(process.execPath,['node_modules/vite/bin/vite.js','preview','--host','127.0.0.1','--port','4173','--strictPort'],{stdio:'pipe'})
 const browser=spawn(edge,['--headless','--no-sandbox','--disable-gpu','--disable-software-rasterizer','--disable-gpu-compositing','--remote-debugging-port=9333','--remote-allow-origins=*',`--user-data-dir=${profile}`,'--no-first-run','about:blank'],{stdio:'ignore'})
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms))
 const waitFor=async(fn,label,limit=12000)=>{const start=Date.now();while(Date.now()-start<limit){try{const value=await fn();if(value)return value}catch{}await sleep(100)}throw new Error(`Timed out: ${label}`)}
@@ -61,3 +61,4 @@ try{
   console.log('E2E_RESULT PASS')
 } catch(error){console.error('E2E_RESULT FAIL',error);process.exitCode=1}
 finally{try{socket?.close()}catch{}browser.kill();server.kill();await sleep(300);rmSync(profile,{recursive:true,force:true})}
+
