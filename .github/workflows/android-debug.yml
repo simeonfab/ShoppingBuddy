@@ -19,9 +19,9 @@ jobs:
       - run: npm run check:version
       - run: npm run typecheck
       - run: npm run check:rls
+      - run: npm run build:web
       - name: Browser interaction tests
         run: npm run test:e2e
-      - run: npm run build:web
       - name: Synchronise web assets into Capacitor
         run: npx cap sync android
       - uses: actions/setup-java@v4
@@ -38,3 +38,4 @@ jobs:
           name: smartshop-android-debug-build-${{ github.run_number }}
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+
