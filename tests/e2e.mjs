@@ -9,6 +9,7 @@ const profile=mkdtempSync(join(tmpdir(),'smartshop-e2e-'))
 const server=spawn(process.execPath,['node_modules/vite/bin/vite.js','preview','--host','127.0.0.1','--port','4173','--strictPort'],{stdio:'pipe'})
 const browser=spawn(edge,['--headless','--no-sandbox','--disable-gpu','--disable-software-rasterizer','--disable-gpu-compositing','--remote-debugging-port=9333','--remote-allow-origins=*',`--user-data-dir=${profile}`,'--no-first-run','about:blank'],{stdio:'ignore'})
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms))
+const expectedAccountState=process.env.VITE_SUPABASE_URL&&process.env.VITE_SUPABASE_ANON_KEY?'Sign in and sync local lists':'Account setup required'
 const waitFor=async(fn,label,limit=12000)=>{const start=Date.now();while(Date.now()-start<limit){try{const value=await fn();if(value)return value}catch{}await sleep(100)}throw new Error(`Timed out: ${label}`)}
 
 let socket,id=0,pending=new Map(),sessionId
@@ -33,7 +34,7 @@ try{
   await assert(()=>js(`new Promise(resolve=>{const request=indexedDB.open('smartshop',3);request.onsuccess=()=>{const get=request.result.transaction('state').objectStore('state').get('app');get.onsuccess=()=>resolve(get.result?.lists?.[0]?.name==='Legacy survivor'&&!!get.result?.lists?.[0]?.syncId);get.onerror=()=>resolve(false)};request.onerror=()=>resolve(false)})`),'legacy local data migrates to IndexedDB with sync identifiers')
   await js(`(async()=>{await new Promise(resolve=>{const request=indexedDB.deleteDatabase('smartshop');request.onsuccess=request.onerror=request.onblocked=()=>resolve()});localStorage.clear();location.reload()})()`);await text('Weekly shop')
 
-  await click('Open Settings');await text('SmartShop 0.4.0');await text('Build 5');await text('DEVELOPMENT PREVIEW');await text('Account setup required');console.log('PASS Settings opens current version history and honest unconfigured account state');await click('Close')
+  await click('Open Settings');await text('SmartShop 0.4.0');await text('Build 5');await text('DEVELOPMENT PREVIEW');await text(expectedAccountState);console.log('PASS Settings opens current version history and honest account configuration state');await click('Close')
 
   await clickSelector('.add-list');await text('New shopping list');await click('List actions');await fill('.name-save input','Kitchen walk');await clickSelector('.name-save button');await text('Kitchen walk')
   await click('List actions');await click('Duplicate list');await text('Kitchen walk copy');await click('Kitchen walk');await assert(()=>js(`document.querySelector('h1')?.textContent==='Kitchen walk'`),'create, rename, duplicate and switch lists');await click('Weekly shop')
